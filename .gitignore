@@ -1,0 +1,44 @@
+# Lingkungan virtual & cache Python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Data mentah & arsip zip (>100 MB ditolak GitHub; dataset bisa diunduh dari Kaggle)
+archive/
+archive.zip
+dataset dari kaggle/
+dataset dari kaggle.zip
+
+# Keluaran pipeline (bisa dibuat ulang dengan cleaning.py / experiment.py)
+out/
+out_*/
+out_*_log.txt
+kaggle_pralatih/data/
+
+# Hasil eksperimen & log (bisa dibuat ulang)
+results_*/
+results_*_log.txt
+audit_langkah3/
+
+# Backup manual
+*.bak_*
+*.sebelum_*
+arsip/
+
+# Dokumen penelitian (belum dipublikasikan)
+*.md
+*.docx
+docs/
+
+# Rahasia & berkas lokal
+.env
+kaggle.json
+*.key
+environment_report.json
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

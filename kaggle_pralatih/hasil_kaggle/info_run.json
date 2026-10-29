@@ -1,0 +1,72 @@
+{
+  "config": {
+    "model_name": "bert-base-uncased",
+    "max_len": 512,
+    "batch_size": 16,
+    "eval_batch_size": 64,
+    "lr": 2e-05,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.06,
+    "epochs": 4,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "fp16": true,
+    "grad_clip": 1.0,
+    "truncation": "head"
+  },
+  "smoke": false,
+  "n": {
+    "train_fit": 23294,
+    "val": 3245,
+    "test": 4209
+  },
+  "persen_dipotong": {
+    "text_ref|train_fit": 24.4,
+    "text_ref|val": 22.5,
+    "text_ref|test": 23.1,
+    "text_init|train_fit": 5.6,
+    "text_init|val": 3.9,
+    "text_init|test": 4.0
+  },
+  "torch": "2.11.0+cu128",
+  "gpu": "Tesla T4",
+  "n_gpu": 2,
+  "bobot_kelas": {
+    "trivial": 9.9803,
+    "minor": 3.6939,
+    "normal": 0.2392,
+    "major": 1.3718,
+    "critical": 1.9305,
+    "blocker": 4.9583
+  },
+  "epoch_terbaik": {
+    "0|ref": {
+      "epoch": 3,
+      "val_macro_f1": 0.3022
+    },
+    "0|init": {
+      "epoch": 3,
+      "val_macro_f1": 0.2873
+    },
+    "1|ref": {
+      "epoch": 4,
+      "val_macro_f1": 0.3026
+    },
+    "1|init": {
+      "epoch": 4,
+      "val_macro_f1": 0.2841
+    },
+    "2|ref": {
+      "epoch": 4,
+      "val_macro_f1": 0.293
+    },
+    "2|init": {
+      "epoch": 4,
+      "val_macro_f1": 0.2704
+    }
+  },
+  "detik": 7927
+}

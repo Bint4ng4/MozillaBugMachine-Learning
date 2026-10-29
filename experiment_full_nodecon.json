@@ -1,0 +1,39 @@
+{
+  "config": {
+    "train": "out/cleaned_full_nodecon_train.csv",
+    "test": "out/cleaned_full_nodecon_test.csv",
+    "max_features": 20000
+  },
+  "n_train": 27940,
+  "n_test": 4418,
+  "baseline_majority": {
+    "accuracy": 0.708465368945224,
+    "macro_f1": 0.13822646175587353
+  },
+  "tfidf_vocab_size": 20000,
+  "model": {
+    "type": "TF-IDF + LogisticRegression(class_weight=balanced)",
+    "accuracy": 0.5052059755545496,
+    "macro_f1": 0.30589534333987284,
+    "per_class_f1": {
+      "trivial": 0.104,
+      "minor": 0.14832535885167464,
+      "normal": 0.6680343155538978,
+      "major": 0.23771224307417338,
+      "critical": 0.43184559710494574,
+      "blocker": 0.24545454545454545
+    }
+  },
+  "bootstrap": {
+    "mean_macro_f1": 0.30592646751373037,
+    "ci95_lo": 0.289408520557156,
+    "ci95_hi": 0.3222641636276684
+  },
+  "gate_1b": {
+    "threshold_macro_f1": 0.25,
+    "passed_macro_f1": true,
+    "passed_trivial_f1": true,
+    "overall_pass": true
+  },
+  "elapsed_seconds": 28.391237258911133
+}

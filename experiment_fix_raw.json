@@ -1,0 +1,36 @@
+{
+  "config": {
+    "train": "archive/fix_train.csv",
+    "test": "archive/fix_test.csv",
+    "max_features": 20000,
+    "target": "Label"
+  },
+  "n_train": 28000,
+  "n_test": 4427,
+  "baseline_majority": {
+    "accuracy": 0.7935396430991642,
+    "macro_f1": 0.4424433249370277
+  },
+  "tfidf_vocab_size": 20000,
+  "model": {
+    "type": "TF-IDF + LogisticRegression(class_weight=balanced)",
+    "accuracy": 0.8118364580980348,
+    "macro_f1": 0.7531891497195873,
+    "per_class_f1": {
+      "0": 0.8735003796507214,
+      "1": 0.6328779197884531
+    }
+  },
+  "bootstrap": {
+    "mean_macro_f1": 0.7529116717941261,
+    "ci95_lo": 0.737718218958935,
+    "ci95_hi": 0.7679475503933386
+  },
+  "gate_1b": {
+    "threshold_macro_f1": 0.25,
+    "passed_macro_f1": true,
+    "passed_trivial_f1": true,
+    "overall_pass": true
+  },
+  "elapsed_seconds": 25.672736167907715
+}

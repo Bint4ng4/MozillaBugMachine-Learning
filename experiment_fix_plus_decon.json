@@ -1,0 +1,36 @@
+{
+  "config": {
+    "train": "out/cleaned_fix_plus_decon_train.csv",
+    "test": "out/cleaned_fix_plus_decon_test.csv",
+    "max_features": 20000,
+    "target": "Label"
+  },
+  "n_train": 27993,
+  "n_test": 4426,
+  "baseline_majority": {
+    "accuracy": 0.7934929959331225,
+    "macro_f1": 0.4424288233812043
+  },
+  "tfidf_vocab_size": 20000,
+  "model": {
+    "type": "TF-IDF + LogisticRegression(class_weight=balanced)",
+    "accuracy": 0.8117939448712156,
+    "macro_f1": 0.7533123624037843,
+    "per_class_f1": {
+      "0": 0.8734234918705364,
+      "1": 0.6332012329370321
+    }
+  },
+  "bootstrap": {
+    "mean_macro_f1": 0.7530565712219806,
+    "ci95_lo": 0.7382198797795241,
+    "ci95_hi": 0.7671951517925247
+  },
+  "gate_1b": {
+    "threshold_macro_f1": 0.25,
+    "passed_macro_f1": true,
+    "passed_trivial_f1": true,
+    "overall_pass": true
+  },
+  "elapsed_seconds": 25.549937963485718
+}
