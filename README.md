@@ -91,8 +91,3 @@ scikit-learn
 
 (Uji ketahanan dengan BERT memakai `transformers`/`torch` secara terpisah — lihat
 `kaggle_pralatih/`.)
-
-### Status
-
-Pre-thesis (draf paper belum dipublikasikan). Klaim dibatasi pada satu proyek (Mozilla), satu era
-(±1998–2001), dan satu set data.
