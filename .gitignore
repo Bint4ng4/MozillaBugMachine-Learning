@@ -28,6 +28,7 @@ arsip/
 
 # Dokumen penelitian (belum dipublikasikan)
 *.md
+!README.md
 *.docx
 docs/
 

@@ -39,6 +39,11 @@ AUDIT_SHEETS = {"AI_pembanding_8Okt": "audit_model_pembanding.csv",
                 "AI_lembarA_10Okt": "audit_penilai_A.csv",
                 "AI_lembarB_10Okt": "audit_penilai_B.csv"}
 AUDIT_KEY = "audit_langkah3/audit_KUNCI_jangan_dibuka_penilai.csv"
+# subset 40 item (langkah 3 opsi 2, 10-12 Nov 2026): kunci & lembar pakai penomoran ULANG 1..40 sendiri,
+# BUKAN penomoran AUDIT_KEY -- jangan dicampur dengan AUDIT_SHEETS/AUDIT_KEY di atas.
+HUMAN_SHEETS = {"P1_manusia": "audit_langkah3/validasi_manusia/lembar_validasi_P1.csv",
+                "P2_manusia": "audit_langkah3/validasi_manusia/lembar_validasi_P2.csv"}
+HUMAN_KEY = "audit_langkah3/validasi_manusia/KUNCI_validasi_jangan_dibuka_penilai.csv"
 
 
 def v_from_codes(a: np.ndarray, b: np.ndarray, ka: int, kb: int) -> float:
@@ -129,8 +134,29 @@ def main() -> int:
                           "prevalensi_ci_lo": est[1], "prevalensi_ci_hi": est[2]})
         print(f"  {rater:<20} K {kb}/{nb} ({100 * kb / nb:.0f}%, [{100 * lo:.0f}, {100 * hi:.0f}]) -> "
               f"{est[0]:.1f}% [{est[1]:.1f}, {est[2]:.1f}]")
+
+    # validasi manusia (langkah 3 opsi 2, 10-12 Nov 2026): subset 40 item bernomor ulang, kunci terpisah dari AUDIT_KEY
+    if Path(HUMAN_KEY).exists():
+        hkey = pd.read_csv(HUMAN_KEY, encoding="utf-8-sig").set_index("item")
+        hgrp_b = hkey.index[hkey["group"] == "B_tanpa_penanda"]
+        for rater, path in HUMAN_SHEETS.items():
+            if not Path(path).exists():
+                continue
+            lab = pd.read_csv(path, encoding="utf-8-sig", keep_default_na=False).set_index("item")["label"].str.strip().str.upper()
+            kb, nb = int((lab.loc[hgrp_b] == "K").sum()), len(hgrp_b)
+            lo, hi = wilson(kb, nb)
+            est = [100 * (pm + (1 - pm) * x) for x in (kb / nb, lo, hi)]
+            prev_rows.append({"penilai": rater, "jenis": "manusia", "K_tanpa_penanda": kb, "n_tanpa_penanda": nb,
+                              "pct_K_tanpa_penanda": 100 * kb / nb, "prevalensi_est": est[0],
+                              "prevalensi_ci_lo": est[1], "prevalensi_ci_hi": est[2]})
+            print(f"  {rater:<20} K {kb}/{nb} ({100 * kb / nb:.0f}%, [{100 * lo:.0f}, {100 * hi:.0f}]) -> "
+                  f"{est[0]:.1f}% [{est[1]:.1f}, {est[2]:.1f}]")
+
     report["prevalensi_audit"] = prev_rows
-    report["catatan"] = ("Penilai audit saat ini semuanya AI (provisional); validasi manusia subset 40 item belum ada. "
+    report["catatan"] = ("Validasi manusia subset 40 item (P1, P2; langkah 3 opsi 2, 10-12 Nov 2026): kesepakatan biner "
+                         "K vs bukan-K P1 vs P2 95% (kappa 0,64; AC1 0,942), P1/P2 vs 3 lembar AI 88-92% -- lihat "
+                         "audit_langkah3/validasi_manusia/validasi_hasil.json. Prevalensi K pada kelompok B_tanpa_penanda "
+                         "dari P1/P2 di atas dipakai sama seperti lembar AI untuk estimasi prevalensi kontaminasi. "
                          "V mengukur keterkaitan KEHADIRAN penanda, bukan kebocoran isi (kontrol positif langkah 4).")
 
     out = Path(args.out_dir)
